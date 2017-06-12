@@ -22,7 +22,7 @@ export default class Board extends React.Component {
     }
 
     render() {
-        const status = "Next player: " + this.getNextPlayer();
+        const status = this.getStatusText();
 
         return (
             <div>
@@ -47,6 +47,10 @@ export default class Board extends React.Component {
     }
 
     handleClick(i) {
+        if (BoardHelper.calculateWinner(this.state.squares) || this.state.squares[i]) {
+            return;
+        }
+
         const squares = this.state.squares.slice();
         squares[i] = this.getNextPlayer();
         this.setState({
@@ -61,5 +65,39 @@ export default class Board extends React.Component {
         }
 
         return "O";
+    }
+
+    getStatusText() {
+        const winner = BoardHelper.calculateWinner(this.state.squares);
+
+        if (winner) {
+            return "Winner: " + winner;
+        }
+
+        return "Next player: " + this.getNextPlayer();
+    }
+}
+
+class BoardHelper {
+    static calculateWinner(squares) {
+        const lines = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        for (let i = 0; i < lines.length; i++) {
+            const [a, b, c] = lines[i];
+            if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                return squares[a];
+            }
+        }
+
+        return null;
     }
 }
