@@ -69,7 +69,9 @@ export default class Game extends React.Component {
 
         this.setState({
             history: history.concat([{
-                squares: squares
+                squares: squares,
+                column: i % 3 + 1,
+                row: parseInt(i / 3, 10) + 1
             }]),
             xIsNext: !this.state.xIsNext,
             stepNumber: history.length
@@ -79,7 +81,7 @@ export default class Game extends React.Component {
     getMovesHistory(history) {
         return history.map((step, move) => {
             const desc = move ?
-                "Move #" + move :
+                "Move (" + step.row + "," + step.column + ")":
                 "Game start";
 
             return (
