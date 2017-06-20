@@ -22,7 +22,7 @@ export default class Game extends React.Component {
         const winner = BoardHelper.calculateWinner(current.squares);
 
         let status = this.getStatusText(winner);
-        let moves = this.getMovesHistory(history);
+        let moves = this.getMovesHistory(history, this.state.stepNumber);
 
         return (
             <div className="game">
@@ -78,7 +78,7 @@ export default class Game extends React.Component {
         });
     }
 
-    getMovesHistory(history) {
+    getMovesHistory(history, currentStep) {
         return history.map((step, move) => {
             const desc = move ?
                 "Move (" + step.row + "," + step.column + ")":
@@ -86,7 +86,7 @@ export default class Game extends React.Component {
 
             return (
                 <li key={move}>
-                    <a href="#" onClick={() => this.jumpTo(move)}>{desc}</a>
+                    <a href="#" onClick={() => this.jumpTo(move)}>{ move === currentStep ? <b>{desc}</b>: desc }</a>
                 </li>
             );
         });
