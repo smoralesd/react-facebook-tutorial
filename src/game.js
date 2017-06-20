@@ -29,6 +29,7 @@ export default class Game extends React.Component {
                 <div className="game-board">
                     <Board
                         squares={current.squares}
+                        highlight={winner != null ? winner.line : null}
                         onClick={(i) => this.handleClick(i)}
                     />
                 </div>
@@ -42,7 +43,7 @@ export default class Game extends React.Component {
 
     getStatusText(winner) {
         if (winner) {
-            return "Winner: " + winner;
+            return "Winner: " + winner.winner;
         }
 
         return "Next player: " + this.getNextPlayer();

@@ -5,9 +5,16 @@ import Square from "./square.js";
 export default class Board extends React.Component {
 
     renderSquare(i) {
+        let shouldHighlight = null;
+
+        if (this.props.highlight) {
+            shouldHighlight = this.props.highlight.find(x => { return x === i; });
+        }
+
         return (
             <Square
                 value={this.props.squares[i]}
+                highlight={shouldHighlight != null}
                 onClick={() => this.props.onClick(i)}
             />
         );
