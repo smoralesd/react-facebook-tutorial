@@ -1,15 +1,27 @@
-import React from "react";
+import * as React from "react";
 
 import Board from "./board.js";
 import BoardHelper from "./board-helper.js";
 
-export default class Game extends React.Component {
+interface IHistoryEntry {
+    squares: string[];
+    row?: number;
+    column?: number;
+}
+
+interface IGameState {
+    history: IHistoryEntry[];
+    xIsNext: boolean;
+    stepNumber: number;
+}
+
+export default class Game extends React.Component<any, IGameState> {
     constructor() {
         super();
 
         this.state = {
             history: [{
-                squares: Array(9).fill(null)
+                squares: new Array<string>(9)
             }],
             xIsNext: true,
             stepNumber: 0
@@ -57,7 +69,7 @@ export default class Game extends React.Component {
         return "O";
     }
 
-    handleClick(i) {
+    handleClick(i: number) {
         const history = this.state.history.slice(0, this.state.stepNumber + 1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
@@ -67,13 +79,14 @@ export default class Game extends React.Component {
         }
 
         squares[i] = this.getNextPlayer();
+        const newEntry: IHistoryEntry = {
+            squares: squares,
+            column: i % 3 + 1,
+            row: Math.floor(i / 3) + 1
+        };
 
         this.setState({
-            history: history.concat([{
-                squares: squares,
-                column: i % 3 + 1,
-                row: parseInt(i / 3, 10) + 1
-            }]),
+            history: history.concat([newEntry]),
             xIsNext: !this.state.xIsNext,
             stepNumber: history.length
         });

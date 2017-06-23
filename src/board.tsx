@@ -1,8 +1,8 @@
-import React from "react";
+import * as React from "react";
 
 import Square from "./square.js";
 
-export default class Board extends React.Component {
+export default class Board extends React.Component<any, any> {
 
     renderSquare(i) {
         let shouldHighlight = null;
