@@ -1,4 +1,6 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 
-ReactDOM.render(<div>hello world</div>, document.getElementById("tic-tac-toe"));
+import { Game } from "./game";
+
+ReactDOM.render(<Game />, document.getElementById("tic-tac-toe"));

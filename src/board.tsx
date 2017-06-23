@@ -1,6 +1,6 @@
 import * as React from "react";
 
-import Square from "./square.js";
+import Square from "./square";
 
 export default class Board extends React.Component<any, any> {
 

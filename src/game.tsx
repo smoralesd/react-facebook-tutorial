@@ -1,7 +1,7 @@
 import * as React from "react";
 
-import Board from "./board.js";
-import BoardHelper from "./board-helper.js";
+import Board from "./board";
+import BoardHelper from "./board-helper";
 
 interface IHistoryEntry {
     squares: string[];
@@ -15,7 +15,7 @@ interface IGameState {
     stepNumber: number;
 }
 
-export default class Game extends React.Component<any, IGameState> {
+export class Game extends React.Component<any, IGameState> {
     constructor() {
         super();
 
